@@ -1,26 +1,38 @@
 using System.Threading.Tasks;
 using ITestApplication.Test;
 using ITestApplication.Test.Dtos;
-using Lms.Rpc.Runtime.Server;
+using Microsoft.AspNetCore.Http;
+using Silky.Rpc.Runtime.Server;
+using StackExchange.Profiling;
 
 namespace GatewayDemo.AppService
 {
     public class TestProxyAppService : ITestProxyAppService
     {
         private readonly ITestAppService _testAppService;
-        private readonly ICurrentServiceKey _currentServiceKey;
+        private readonly IServiceKeyExecutor _serviceKeyExecutor;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
         public TestProxyAppService(ITestAppService testAppService,
-            ICurrentServiceKey currentServiceKey)
+            IServiceKeyExecutor serviceKeyExecutor,
+            IHttpContextAccessor httpContextAccessor)
         {
             _testAppService = testAppService;
-            _currentServiceKey = currentServiceKey;
+            _serviceKeyExecutor = serviceKeyExecutor;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public async Task<TestOut> CreateProxy(TestInput testInput)
         {
-            _currentServiceKey.Change("v2");
-            return await _testAppService.Create(testInput);
+            // _serviceKeyExecutor.ChangeServiceKey("v2");
+            var result = await _testAppService.Create(testInput);
+            return result;
+        }
+
+        public async Task<string> MiniProfilerText()
+        {
+            var html = MiniProfiler.Current.RenderIncludes(_httpContextAccessor.HttpContext).ToString();
+            return html;
         }
 
         public async Task<TestOut> GetProxy(string name)
@@ -28,14 +40,14 @@ namespace GatewayDemo.AppService
             return await _testAppService.Get(name);
         }
 
-        public async Task<string> DeleteProxy(string name)
+        public async Task<string> DeleteProxy(string name, string address)
         {
-            return await _testAppService.Delete(name);
+            return await _testAppService.Delete(new TestInput() { Name = name, Address = address });
         }
 
-        public Task<string> UpdatePart(TestInput input)
+        public async Task<string> UpdatePart(TestInput input)
         {
-            return _testAppService.UpdatePart(input);
+            return await _serviceKeyExecutor.Execute(() => _testAppService.UpdatePart(input), "v2");
         }
     }
 }

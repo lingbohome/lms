@@ -1,24 +1,24 @@
 using System.Threading.Tasks;
-using Lms.Rpc.Runtime.Server;
-using Lms.Rpc.Runtime.Server.ServiceDiscovery;
-using Lms.Transaction;
+using Silky.Rpc.Runtime.Server;
+using Silky.Transaction;
 using Microsoft.AspNetCore.Mvc;
+using Silky.Rpc.Routing;
 
 namespace IAnotherApplication
 {
-    [ServiceRoute]
+    [ServiceRoute(ServiceName = "AnotherAppService")]
     public interface IAnotherAppService
     {
         [Transaction]
         [HttpDelete("one")]
-        [Governance(ProhibitExtranet = true)]
+        [Governance(ProhibitExtranet = true, TimeoutMillSeconds = -1)]
         Task<string> DeleteOne(string name);
-        
+
         [Transaction]
         [HttpDelete("two")]
-        [Governance(ProhibitExtranet = true)]
-        Task<string> DeleteTwo(string name);
-    
+        [Governance(ProhibitExtranet = true, TimeoutMillSeconds = -1)]
+        Task<string> DeleteTwo(string address);
+
         Task<string> Create(string name);
     }
 }

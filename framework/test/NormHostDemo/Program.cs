@@ -12,9 +12,17 @@ namespace NormHostDemo
 
         private static IHostBuilder CreateHostBuilder(string[] args)
         {
-            return Host.CreateDefaultBuilder(args)
-                    .RegisterLmsServices<NormHostModule>()
+            var hostBuilder = Host
+                    .CreateDefaultBuilder(args)
+                    .ConfigureSilkyGeneralHostDefaults()
+                    .UseSerilogDefault()
                 ;
+            if (hostBuilder.IsEnvironment("Apollo"))
+            {
+                hostBuilder.AddApollo();
+            }
+
+            return hostBuilder;
         }
     }
 }

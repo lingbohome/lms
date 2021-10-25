@@ -6,14 +6,31 @@ namespace GatewayDemo
 {
     public class Program
     {
-        public async static Task Main(string[] args)
+        public static async Task Main(string[] args)
         {
             await CreateHostBuilder(args).Build().RunAsync();
         }
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .RegisterLmsServices<WebHostModule>()
-                .ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>(); });
+        private static IHostBuilder CreateHostBuilder(string[] args)
+        {
+            var hostBuilder = Host.CreateDefaultBuilder(args)
+                // .ConfigureSilkyGatewayDefaults(webBuilder =>
+                // {
+                //     webBuilder.UseStartup<Startup>()
+                //         .UseSerilogDefault();
+                // });
+                .ConfigureSilkyWebHostDefaults(webBuilder =>
+                {
+                    webBuilder.UseStartup<Startup>()
+                        .UseSerilogDefault();
+                });
+
+            if (hostBuilder.IsEnvironment("Apollo"))
+            {
+                hostBuilder.AddApollo();
+            }
+
+            return hostBuilder;
+        }
     }
 }

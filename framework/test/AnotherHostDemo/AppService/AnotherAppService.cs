@@ -2,7 +2,8 @@ using System.Threading.Tasks;
 using IAnotherApplication;
 using ITestApplication.Test;
 using ITestApplication.Test.Dtos;
-using Lms.Transaction.Tcc;
+using Silky.Core.Exceptions;
+using Silky.Transaction.Tcc;
 
 namespace AnotherHostDemo.AppService
 {
@@ -16,23 +17,23 @@ namespace AnotherHostDemo.AppService
         }
 
 
-        [TccTransaction(ConfirmMethod = "DeleteConfirm", CancelMethod = "DeleteCancel")]
+        [TccTransaction(ConfirmMethod = "DeleteOneConfirm", CancelMethod = "DeleteOneCancel")]
         public async Task<string> DeleteOne(string name)
         {
-            //throw new BusinessException("测试异常");
+            //throw new BusinessException("DeleteOne exception");
             return "DeleteOne " + name;
         }
 
         [TccTransaction(ConfirmMethod = "DeleteTwoConfirm", CancelMethod = "DeleteTwoCancel")]
-        public async Task<string> DeleteTwo(string name)
+        public async Task<string> DeleteTwo(string address)
         {
-            // throw new BusinessException("测试异常");
-            return "DeleteTwo " + name;
+            // throw new BusinessException("DeleteTwo exception");
+            return "DeleteTwo " + address;
         }
 
         public async Task<string> Create(string name)
         {
-            await _testAppService.Create(new TestInput() {Name = name});
+            await _testAppService.Create(new TestInput() { Name = name });
             return "ok";
         }
 
@@ -45,13 +46,13 @@ namespace AnotherHostDemo.AppService
         {
             return "DeleteTwoCancel " + name;
         }
-        
-        public async Task<string> DeleteConfirm(string name)
+
+        public async Task<string> DeleteOneConfirm(string name)
         {
             return "DeleteConfirm " + name;
         }
 
-        public async Task<string> DeleteCancel(string name)
+        public async Task<string> DeleteOneCancel(string name)
         {
             return "DeleteCancel " + name;
         }

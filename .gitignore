@@ -256,3 +256,11 @@ paket-files/
 .DS_Store
 
 yarn.lock
+package-lock.json
+**/dist/*
+
+**/.mysql/*
+**/.mysql.apollo/*
+
+**/logs/*
+!./framework/src/Silky.Http.Dashboard/wwwroot/dist

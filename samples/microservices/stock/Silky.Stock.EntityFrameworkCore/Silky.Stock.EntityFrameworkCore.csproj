@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net5.0</TargetFramework>
+    </PropertyGroup>
+    
+    <ItemGroup>
+        <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="5.0.0-alpha.2" />
+    </ItemGroup>
+    
+    <ItemGroup>
+      <ProjectReference Include="..\Silky.Stock.Domain\Silky.Stock.Domain.csproj" />
+    </ItemGroup>
+
+</Project>

@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <Import Project="..\..\..\common.props" />
+    <PropertyGroup>
+        <TargetFrameworks>net5.0;net6.0</TargetFrameworks>
+        <Description>Silky Rpc AppService</Description>
+    </PropertyGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\Silky.Rpc\Silky.Rpc.csproj" />
+    </ItemGroup>
+
+</Project>

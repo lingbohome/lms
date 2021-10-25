@@ -1,0 +1,58 @@
+version: '3.7'
+
+services:
+  silky.sample.account:
+    image: silkyframework/sample.account:${TAG:-latest}
+    build:
+      context: ..
+      dockerfile: microservices/account/Silky.AccountHost/Dockerfile
+    volumes:
+      - ./logs/account:/app/logs    
+    environment:
+      DOTNET_ENVIRONMENT: ${DOTNET_ENVIRONMENT:-ContainerDev}
+    networks: 
+      - silky_service_net
+    
+  silky.sample.order:
+    image: silkyframework/sample.order:${TAG:-latest}
+    build:
+      context: ..
+      dockerfile: microservices/order/Silky.OrderHost/Dockerfile
+    volumes:
+      - ./logs/order:/app/logs
+    environment:
+      DOTNET_ENVIRONMENT: ${DOTNET_ENVIRONMENT:-ContainerDev}
+    networks: 
+      - silky_service_net
+  
+  silky.sample.stock:
+    image: silkyframework/sample.stock:${TAG:-latest}
+    build:
+      context: ..
+      dockerfile: microservices/stock/Silky.StockHost/Dockerfile
+    volumes:
+      - ./logs/stock:/app/logs
+    environment:
+      DOTNET_ENVIRONMENT: ${DOTNET_ENVIRONMENT:-ContainerDev}
+    networks: 
+      - silky_service_net
+
+  silky.sample.gateway:
+    image: silkyframework/sample.gateway:${TAG:-latest}
+    build:
+      context: ..
+      dockerfile: microservices/gateway/Silky.GatewayHost/Dockerfile
+    volumes:
+      - ./logs/gateway:/app/logs      
+    environment:
+      DOTNET_ENVIRONMENT: ${DOTNET_ENVIRONMENT:-ContainerDev}
+      ASPNETCORE_ENVIRONMENT: ${DOTNET_ENVIRONMENT:-ContainerDev}
+    ports:
+      - 80:80
+    networks: 
+      - silky_service_net
+
+networks:
+  silky_service_net: 
+    external:
+      name: silky_service_net

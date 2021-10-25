@@ -12,9 +12,16 @@ namespace AnotherHostDemo
 
         private static IHostBuilder CreateHostBuilder(string[] args)
         {
-            return Host.CreateDefaultBuilder(args)
-                    .RegisterLmsServices<AnotherDemoModule>()
+            var hostBuilder = Host.CreateDefaultBuilder(args)
+                    .ConfigureSilkyWebSocketDefaults()
+                    .UseSerilogDefault()
                 ;
+            if (hostBuilder.IsEnvironment("Apollo"))
+            {
+                hostBuilder.AddApollo();
+            }
+
+            return hostBuilder;
         }
     }
 }

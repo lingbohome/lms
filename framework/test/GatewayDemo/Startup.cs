@@ -1,11 +1,11 @@
-using Lms.Core;
-using Lms.Rpc.Configuration;
+using GatewayDemo.Authorization;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.OpenApi.Models;
+using Serilog;
 
 namespace GatewayDemo
 {
@@ -21,23 +21,60 @@ namespace GatewayDemo
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo {Title = "Lms Gateway Demo", Version = "v1"});
-                c.MultipleServiceKey();
-            });
+            // services.AddSwaggerDocuments();
+            // services.AddSilkyMiniProfiler();
+            // // services.AddDashboard();
+            // services.AddSilkyIdentity();
+            // services.AddSilkySkyApm();
+            // services.AddRouting();
+            // services.AddMessagePackCodec();
+            // var redisOptions = Configuration.GetRateLimitRedisOptions();
+            // services.AddClientRateLimit(redisOptions);
+            // services.AddIpRateLimit(redisOptions);
+            // services.AddResponseCaching();
+            // services.AddMvc();
+            // services.AddSilkyHttpCore();
+            services.AddTransient<IAuthorizationHandler, TestAuthorizationHandlerBase>();
+            services.AddSilkyHttpServices();
+            services.AddMessagePackCodec();
+            services.AddHealthChecks()
+                .AddSilkyRpc();
+            // services
+            //     .AddHealthChecksUI()
+            //     .AddInMemoryStorage();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
+            if (env.IsDevelopment() || env.IsEnvironment("ContainerDev"))
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Lms Gateway Demo v1"));
+                app.UseSwaggerDocuments();
+                app.UseMiniProfiler();
             }
-            app.ConfigureLmsRequestPipeline();
+
+            app.UseSerilogRequestLogging();
+            app.UseDashboard();
+            app.UseSilkyRpcHealthCheck()
+                .UseHealthChecksPrometheusExporter("/metrics");
+
+            app.UseRouting();
+            // app.UseClientRateLimiting();
+            // app.UseIpRateLimiting();
+            app.UseSilkyWrapperResponse();
+            app.UseResponseCaching();
+            app.UseHttpsRedirection();
+            app.UseSilkyWebSocketsProxy();
+            app.UseSilkyIdentity();
+            app.UseSilkyHttpServer();
+
+            //   app.UseSilkyExceptionHandler();
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapHealthChecksUI();
+                endpoints.MapSilkyRpcServices();
+            });
         }
     }
 }

@@ -1,0 +1,48 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <Import Project="..\..\..\sample.common.props" />
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net5.0</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Silky.Agent.Host" Version="$(SilkyVersion)" />
+        <PackageReference Include="Silky.SkyApm.Agent" Version="$(SilkyVersion)" />
+        <PackageReference Include="Com.Ctrip.Framework.Apollo.AspNetCoreHosting" Version="2.4.1.1" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.4">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.4">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Update="appsettings.yml">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="appsettings.Production.yml">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="appsettings.Development.yml">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="appsettings.ContainerDev.yml">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="appsettings.Apollo.yml">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Silky.Account.Application\Silky.Account.Application.csproj" />
+        <ProjectReference Include="..\Silky.Account.Database.Migrations\Silky.Account.Database.Migrations.csproj" />
+        <ProjectReference Include="..\Silky.Account.EntityFrameworkCore\Silky.Account.EntityFrameworkCore.csproj" />
+    </ItemGroup>
+    <ItemGroup>
+        <None Remove="skyapm.json" />
+    </ItemGroup>
+</Project>

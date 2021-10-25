@@ -1,12 +1,16 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net5.0</TargetFramework>
+        <TargetFrameworks>net5.0;net6.0</TargetFrameworks>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <NoWarn>$(NoWarn);1591</NoWarn>
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\src\Lms.Rpc\Lms.Rpc.csproj" />
-      <ProjectReference Include="..\..\src\Lms.Transaction\Lms.Transaction.csproj" />
+        <ProjectReference Include="..\..\src\Silky.Rpc.CachingInterceptor\Silky.Rpc.CachingInterceptor.csproj" />
+        <ProjectReference Include="..\..\src\Silky.Validation.Fluent\Silky.Validation.Fluent.csproj" />
+        <ProjectReference Include="..\..\src\Silky.Rpc\Silky.Rpc.csproj" />
+        <ProjectReference Include="..\..\src\Silky.Transaction\Silky.Transaction.csproj" />
     </ItemGroup>
 
 </Project>

@@ -1,0 +1,2 @@
+Sitemap: http://docs.silky-fk.com/sitemap.xml
+User-agent: *

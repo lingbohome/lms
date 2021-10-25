@@ -1,0 +1,21 @@
+<Project>
+  <PropertyGroup>
+
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+
+    <License>MIT</License>
+
+    <LicenseUrl>https://raw.githubusercontent.com/liuhll/silky/main/LICENSE</LicenseUrl>
+
+    <Version>3.0.1</Version>
+
+    <PackageIconUrl>https://raw.githubusercontent.com/liuhll/silky/main/docs/.vuepress/public/assets/logo/logo.png</PackageIconUrl>
+
+    <RepositoryUrl>https://github.com/liuhll/silky</RepositoryUrl>
+
+    <PackageTags>silky;micro-service;rpc;distributed-transactions;tcc-transaction</PackageTags>
+
+    <RepositoryType>Github</RepositoryType>
+
+  </PropertyGroup>
+</Project>

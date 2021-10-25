@@ -1,15 +1,26 @@
+using System;
 using System.Threading.Tasks;
 using ITestApplication.Test;
 using ITestApplication.Test.Dtos;
-using Lms.Rpc.Runtime.Server;
+using Silky.Core.Exceptions;
+using Silky.Core.Serialization;
+using Silky.Rpc.Runtime.Server;
 
 namespace NormHostDemo.AppService
 {
-    [ServiceKey("v2",1)]
+    [ServiceKey("v2", 1)]
     public class TestV2AppService : ITestAppService
     {
+        private readonly ISerializer _serializer;
+
+        public TestV2AppService(ISerializer serializer)
+        {
+            _serializer = serializer;
+        }
+
         public async Task<TestOut> Create(TestInput input)
         {
+            throw new BusinessException("无法执行v2的服务");
             return new()
             {
                 Address = input.Address,
@@ -17,14 +28,19 @@ namespace NormHostDemo.AppService
             };
         }
 
+        public Task<TestOut> Get(long id)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public Task<string> Update(TestInput input)
         {
             throw new System.NotImplementedException();
         }
 
-        public async Task<string> Delete(string name)
+        public async Task<string> Delete(TestInput input)
         {
-            return name + "v2";
+            return _serializer.Serialize(input);
         }
 
         public Task<string> Search(TestInput query)
@@ -44,7 +60,12 @@ namespace NormHostDemo.AppService
                 Name = name + "v2"
             };
         }
-        
+
+        public Task<TestOut> GetById(long id)
+        {
+            throw new System.NotImplementedException();
+        }
+
 
         public Task<string> UpdatePart(TestInput input)
         {

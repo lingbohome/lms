@@ -1,28 +1,42 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net5.0</TargetFramework>
+        <TargetFramework>net6.0</TargetFramework>
         <OutputType>Exe</OutputType>
     </PropertyGroup>
     <ItemGroup>
-        <ProjectReference Include="..\..\src\Lms.NormHost\Lms.NormHost.csproj" />
-        <ProjectReference Include="..\..\src\Lms.WebSocket\Lms.WebSocket.csproj" />
+        <ProjectReference Include="..\..\src\Silky.WebSocket\Silky.WebSocket.csproj" />
+        <ProjectReference Include="..\..\src\Silky.Agent.Host\Silky.Agent.Host.csproj" />
         <ProjectReference Include="..\IAnotherApplication\IAnotherApplication.csproj" />
         <ProjectReference Include="..\ITestApplication\ITestApplication.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.AspNetCore.Hosting" Version="2.2.7" />
-        <PackageReference Include="Microsoft.Extensions.Hosting" Version="5.0.0" />
+        <PackageReference Include="Com.Ctrip.Framework.Apollo.AspNetCoreHosting" Version="2.4.1.1" />
     </ItemGroup>
 
     <ItemGroup>
-      <None Update="appsettings.Development.yml">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </None>
-      <None Update="appsettings.yml">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </None>
+        <None Update="appsettings.Development.yaml">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="appsettings.yaml">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Include="appsettings.Apollo.yaml">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <Content Include="skyapm.json">
+            <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+            <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+        </Content>
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Include="apollo.properties" />
     </ItemGroup>
 
 </Project>

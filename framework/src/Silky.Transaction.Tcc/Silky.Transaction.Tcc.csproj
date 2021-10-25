@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <Import Project="..\..\..\common.props" />
+    <PropertyGroup>
+        <TargetFrameworks>net5.0;net6.0</TargetFrameworks>
+        <Description>Distributed transaction component package based on TCC</Description>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Silky.Core\Silky.Core.csproj" />
+        <ProjectReference Include="..\Silky.Rpc\Silky.Rpc.csproj" />
+        <ProjectReference Include="..\Silky.Transaction.Abstraction\Silky.Transaction.Abstraction.csproj" />
+        <ProjectReference Include="..\Silky.Transaction\Silky.Transaction.csproj" />
+    </ItemGroup>
+
+</Project>

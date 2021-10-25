@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <Import Project="..\..\..\common.props" />
+
+    <PropertyGroup>
+        <TargetFrameworks>net5.0;net6.0</TargetFrameworks>
+        <Description>Silky uses nacos as the service registry</Description>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Silky.Lock\Silky.Lock.csproj" />
+        <ProjectReference Include="..\Silky.Rpc\Silky.Rpc.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="nacos-sdk-csharp" Version="1.2.1" />
+    </ItemGroup>
+
+</Project>
