@@ -21,8 +21,9 @@ namespace Silky.Rpc.Runtime.Client
                 RpcEndpointHelper.CreateRpcEndpoint(selectedHost, selectedServerPort, selectedServerServiceProtocol);
             return selectedServerEndpoint;
         }
-
-        public abstract IAsyncPolicy<object> Create(ServiceEntry serviceEntry, object[] parameters);
+        
+        
+        public abstract IAsyncPolicy<object> Create(string serviceEntryId, object[] parameters);
 
         public abstract event RpcInvokeFailoverHandle OnInvokeFailover;
 

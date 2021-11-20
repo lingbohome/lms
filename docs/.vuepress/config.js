@@ -80,7 +80,7 @@ var _hmt = _hmt || [];
                 content: 'width=device-width, initial-scale=1'
             }
         ],
-        ["meta", { name: "baidu-site-verification", content: "code-q0r0KSL5ZB" }],
+        ["meta", { name: "baidu-site-verification", content: "code-cAZSIwloPN" }],
         [
             "script",
             {
@@ -91,7 +91,7 @@ var _hmt = _hmt || [];
             "meta",
             {
                 name: "360-site-verification",
-                content: "865fffbead89371a9a7cd196f721e64c"
+                content: "5da0cdaf9aaf8d8972302c8c7ecabb82"
             }
         ],
         [
@@ -155,17 +155,20 @@ document.write('<script src="' + src + '" id="sozz"><\/script>');
                     collapsable: false,
                     children: [
                         'dev-docs/quick-start',
+                        'dev-docs/templete',
                         'dev-docs/host',
                         'dev-docs/modularity',
                         'dev-docs/appservice-and-serviceentry',
                         'dev-docs/service-registry',
                         'dev-docs/rpc',
                         'dev-docs/service-governance',
+                        'dev-docs/link-tracking',
                         'dev-docs/caching',
-                        'dev-docs/lock',
+                        'dev-docs/identity',
                         'dev-docs/distributed-transactions',
                         'dev-docs/object-mapping',
                         'dev-docs/dependency-injection',
+                        'dev-docs/lock',
                         'dev-docs/ws',
                         'dev-docs/gateway',
                         'dev-docs/microservice-architecture',

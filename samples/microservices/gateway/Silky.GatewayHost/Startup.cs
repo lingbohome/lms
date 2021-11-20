@@ -34,7 +34,7 @@ namespace Silky.GatewayHost
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment() || env.EnvironmentName == "ContainerDev")
+            if (env.IsDevelopment())
             {
                
                 app.UseDeveloperExceptionPage();
@@ -46,16 +46,14 @@ namespace Silky.GatewayHost
             app.UseSilkyRpcHealthCheck()
                 .UseHealthChecksPrometheusExporter("/metrics");
             app.UseRouting();
+            app.UseSilkyIdentity();
             app.UseSilkyWrapperResponse();
             // app.UseClientRateLimiting();
             // app.UseIpRateLimiting();
             app.UseResponseCaching();
             app.UseHttpsRedirection();
             app.UseSilkyWebSocketsProxy();
-            app.UseSilkyExceptionHandler();
-            app.UseSilkyIdentity();
             app.UseSilkyHttpServer();
-            // app.ConfigureSilkyRequestPipeline();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapHealthChecksUI();
